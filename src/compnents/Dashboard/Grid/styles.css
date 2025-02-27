@@ -1,0 +1,132 @@
+.grid-container{
+    width:320px;
+    height: 320px;
+    background-color: var(--darkgrey);
+    border: 2px solid var(--darkgrey);
+    border-radius:0.75rem;
+}
+.grid-container:hover{
+    border-color: var(--green);
+    transition: all 0.3s;
+}
+.grid-container-red:hover{
+    border-color: var(--red);
+    transition: all 0.3s;
+}
+
+.info-flex{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+    margin:1.5rem;
+}
+.coin-logo{
+    height: 3.5rem;
+    width:3.5rem;
+}
+.name-col{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.coin-symbol{
+    color: var(--white);
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size:1.2rem;
+    margin: 0;
+    margin-right: 5rem;
+}
+.coin-name{
+    color: var(--grey);
+    text-transform: capitalize;
+    font-weight: light;
+    font-size:1rem;
+    margin: 0;
+
+}
+.watchlist-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--green);
+    border-radius: 50%;
+    color: var(--green);
+    padding: 0.5rem;
+    height: 1.5rem;
+    width: 1.5rem !important;
+  }
+  
+  .watchlist-icon-red {
+    border: 2px solid var(--red);
+    color: var(--red);
+  }
+.chip-flex{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 1.5rem;
+}
+.price-chip{
+    border:2px solid var(--green);
+    border-radius: 2rem;
+    padding:0.35rem 1.25rem ;
+    text-align: center;
+    font-weight: 600;
+    color: var(--green) !important;
+    font-size: 1.1rem;
+    min-width: 64px;
+}
+.price-chip:hover{
+    background-color: var(--green);
+    color: var(--white) !important;
+    transform: all 0.3s;
+}
+.chip-red{
+    border:2px solid var(--red) !important;
+    color: var(--red) !important;
+}
+.chip-red:hover{
+    background-color: var(--red) !important;
+    color: var(--white) !important;
+    transform: all 0.3s;
+}
+.icon-chip{
+    border:2px solid var(--green);
+    border-radius: 2rem;
+    height: 2rem !important;
+    width: 2rem !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--green);
+    font-size: 1.1rem;
+}
+.icon-chip:hover{
+    background-color: var(--green);
+    color: var(--white);
+    transform: all 0.3s;
+}
+.info-container{
+    margin:1.5rem
+}
+.info-container h3{
+    font-size: 1.2rem;
+}
+.total-vol,.market-cap{
+    color:var(--grey);
+    font-size: 1rem;
+    font-weight: 500;
+
+}
+@media only screen and (max-width: 500px) {
+    .grid-container{
+        width: 280px;
+        height: 280px;
+    }
+    .watchlist-icon{
+        margin-left: -2rem;
+    }
+}

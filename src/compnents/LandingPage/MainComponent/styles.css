@@ -1,0 +1,129 @@
+.flex-info{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding:0.5rem 3rem;
+}
+.real-time-heading,.crypto-heading{
+    font-size: 5.1rem;
+    margin:0
+}
+.crypto-heading{
+    color: var(--white);
+    -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: var(--white);
+
+}
+.crypto-heading:hover{
+    color: var(--black);
+    -webkit-text-stroke-color: var(--white);
+    transition: all 0.3s;
+}
+.real-time-heading{
+    color:var(--blue);
+}
+.info-text{
+    font-size: 1rem;
+    color: var(--grey);
+
+}
+.btn-flex{
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+
+} 
+.phone-container{
+    position: relative;
+    width: 50%;
+    margin-left: auto;
+    margin-right: 70px;
+}
+.iphone{
+    position: absolute;
+    z-index: 100;
+    width: 300px;
+    right: 10px;
+}
+.gradient{
+    position: absolute;
+    width:250px;
+    top:80px;
+    right: 0px;
+
+}
+@media only screen and (max-width: 1350px) {
+    .real-time-heading,.crypto-heading{
+        font-size: 5rem;
+        margin: 0;
+    }
+  }
+
+@media only screen and (max-width: 1050px) {
+    .iphone{
+        min-width: 250px;
+        width: 50%;   
+    }
+    .gradient{
+        min-width: 200px;
+        width:40%; 
+    }
+}
+@media only screen and (max-width: 800px) {
+    .flex-info{
+       flex-direction: column;
+    }
+    .phone-container{
+        display: block;
+        margin: auto;
+        margin-top: 3rem;
+    }
+    .gradient,
+    .iphone {
+    left: 45px;
+    }
+
+    .iphone {
+        left: 9px;
+    }
+    .left-component{
+        width: 100%;
+    }
+    .real-time-heading,.crypto-heading{
+        font-size: 3rem;
+        text-align: center;
+        margin:0
+    }
+    .crypto-heading{
+        -webkit-text-stroke-width: 1px;
+    }
+    .info-text{
+        text-align: center;
+    }
+    .btn-flex{
+        justify-content:center ;
+    }
+}
+@media only screen and (max-width: 500px) {
+    .phone-container{
+        display: block;
+        margin: auto;
+        margin-top: 3rem;
+    }
+    .gradient,
+    .iphone {
+    left: 30px;
+    }
+
+    .iphone {
+        left: -2rem;
+    }
+    .gradient{
+        left:-1rem;
+    }
+    .left-component{
+        width: 100%;
+    }
+}
