@@ -2,11 +2,11 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    padding:0.5rem 3rem;
+    padding:0.5rem 5rem;
 }
 .real-time-heading,.crypto-heading{
-    font-size: 5.1rem;
-    margin:0
+    font-size: 3.1rem;
+    display: flex;
 }
 .crypto-heading{
     color: var(--white);
@@ -14,11 +14,81 @@
   -webkit-text-stroke-color: var(--white);
 
 }
-.crypto-heading:hover{
+/* .crypto-heading:hover{
     color: var(--black);
     -webkit-text-stroke-color: var(--white);
     transition: all 0.3s;
-}
+} */
+
+.crypto-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    background: #f9f9f9;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  .crypto-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  
+  .crypto-logo {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px;
+  }
+  
+  
+  .crypto-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .crypto-fullname {
+    font-size: 0.9rem;
+    color: #777;
+  }
+  
+  .crypto-logo {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 5px;
+  }
+  
+  .crypto-change {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 5px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    width: fit-content;
+  }
+  
+  .positive {
+    color: #00c853; /* Green for profit */
+    background-color: #e8f5e9;
+  }
+  
+  .negative {
+    color: #d50000; /* Red for loss */
+    background-color: #ffebee;
+  }
+  
+  
+  .crypto-price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 0.5rem;
+    color: #333;
+  }
+  
 .real-time-heading{
     color:var(--blue);
 }
@@ -46,14 +116,91 @@
     z-index: 100;
     width: 300px;
     right: 10px;
+    border-radius: 30px;
 }
 .gradient{
     position: absolute;
-    width:250px;
+    width:260px;
     top:80px;
     right: 0px;
 
 }
+.right-component {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    gap: 1rem;
+  }
+  
+  .right-component {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    gap: 1rem;
+    perspective: 1000px; /* Needed for 3D effects */
+  }
+  
+  /* Large Box */
+  .large-box {
+    width: 100%;
+    height: 300px;
+    background: white;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .large-box h2 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    color: #515062;
+  }
+  
+  .crypto-logo {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 5px;
+  }
+  
+  
+  /* Small Boxes */
+  .bottom-boxes {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .small-box {
+    width: 350px;
+    height: 200px;
+    background: linear-gradient(135deg, #d5c7c7, #938787);
+    border-radius: 20px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    transform-style: preserve-3d;
+    animation: float 4s ease-in-out infinite;
+  }
+  
+  .small-box:hover {
+    transform: rotateY(-10deg) rotateX(-10deg);
+    box-shadow: 0px 8px 18px rgba(255, 0, 0, 0.7);
+  }
+  
+  
+  /* Floating Animation */
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+  }
+  
+  
 @media only screen and (max-width: 1350px) {
     .real-time-heading,.crypto-heading{
         font-size: 5rem;

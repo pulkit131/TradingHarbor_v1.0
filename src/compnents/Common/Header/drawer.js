@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import Switch from '@mui/material/Switch';
@@ -12,24 +11,20 @@ import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded';
 export default function AnchorTemporaryDrawer() {
   const [open, setOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(
-    localStorage.getItem('theme') === 'dark'
+    localStorage.getItem('theme') !== 'light' // Default to dark mode
   );
 
   useEffect(() => {
-    if (localStorage.getItem('theme') === 'dark') {
-      setDark();
-    } else {
-      setLight();
-    }
+    setDark(); // Set dark mode as default
   }, []);
 
   const changeMode = () => {
-    if (localStorage.getItem('theme') !== 'dark') {
-      setDark();
-    } else {
+    if (localStorage.getItem('theme') === 'dark') {
       setLight();
+    } else {
+      setDark();
     }
-    setDarkMode(!darkMode);
+    setDarkMode((prevMode) => !prevMode);
     toast.success('Theme Changed!');
   };
 
@@ -54,7 +49,7 @@ export default function AnchorTemporaryDrawer() {
           <Link to='/trending'><p className='link'>Trending<TrendingUpRoundedIcon/></p></Link>
           <Link to='/watchlist'><p className='link'>Watchlist</p></Link>
           <Link to='/dashboard'><p className='link'>Dashboard</p></Link>
-          <Switch checked={darkMode} onClick={() => changeMode()} />
+          <Switch checked={darkMode} onChange={changeMode} />
         </div>
       </Drawer>
       <ToastContainer />
