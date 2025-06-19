@@ -6,3 +6,5 @@ const {auth} = require('../middleware/auth');
 router.get('/:emailId',auth,watchlistController.getAllCoinsFromWatchlist);
 router.post('/:emailId/:coinId',auth,watchlistController.addToWatchlist);
 router.delete('/:emailId/:coinId',auth,watchlistController.deleteFromWatchlist);
+
+module.exports = router;
