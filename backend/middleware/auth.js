@@ -8,7 +8,7 @@ async function auth(req, res, next) {
       return res.status(401).json({ error: 'No token provided' });
     }
     const [bearer,token] = authHeader.split(' ');
-    if (!bearer || !token || bearer!== 'Bearer') {
+     if (!bearer || !token || bearer.toLowerCase() !== 'bearer') {
       return res.status(401).json({ error: 'Malformed token' });
     }
 
