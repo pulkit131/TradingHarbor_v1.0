@@ -44,9 +44,12 @@ function LandingPage() {
 
   // Handle Google login success
   const handleLoginSuccess = (credentialResponse) => {
+    const idToken = credentialResponse.credential;
+    localStorage.setItem('googleIdToken', idToken);
     const decoded = jwtDecode(credentialResponse.credential);
     setUser(decoded);
     toast.success('Google login successful!');
+    window.location.reload();
   };
 
   // Chart options (theme-aware)
@@ -234,12 +237,6 @@ function LandingPage() {
     }
   };
 
-  const handleLogout = () => {
-  localStorage.removeItem('user');
-  setUser(null);
-  toast.info('Logged out!');
-};
-
 
   return (
     <div className='flex-info'>
@@ -275,7 +272,6 @@ function LandingPage() {
             <div className="btn-flex" style={{ marginTop: "2.5rem", gap: "1.5rem" }}>
   <button className="dashboard-btn" onClick={() => navigate('/dashboard')}>Dashboard</button>
   <button className="share-btn" onClick={handleShare}>Share</button>
-  <button className="logout-btn" onClick={handleLogout}>Logout</button>
 </div>
 
           )}

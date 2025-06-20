@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate,useLocation } from 'react-router-dom';
 import AnchorTemporaryDrawer from './drawer';
 import Button from '../Button';
 import Switch from '@mui/material/Switch';
 import { toast } from 'react-toastify';
+
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded';
 import './styles.css';
 
@@ -40,6 +41,29 @@ function Header() {
     document.documentElement.setAttribute('data-theme', 'light');
   };
 
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isLoggedIn = Boolean(localStorage.getItem('user'));
+
+  const loginOrLogOut = () => {
+    if (isLoggedIn) {
+      localStorage.removeItem('user');
+      localStorage.removeItem('googleIdToken');
+      toast.info('Logged out successfully!');
+      if(location.pathname === '/'){
+        window.location.reload();
+      }
+      navigate('/');
+    } else {
+       if(location.pathname === '/'){
+        window.location.reload();
+      }
+      navigate('/'); 
+    }
+  };
+
+  const logText = isLoggedIn ? 'Log Out' : 'Log In';
+
   return (
     <div className='navbar'>
       <h1 className='logo'>
@@ -57,6 +81,7 @@ function Header() {
             onClick={() => console.log("btn Clicked")}
           />
         </Link>
+        <Link to='/'><Button text = {logText} outlined= {false}  onClick={loginOrLogOut}></Button></Link>
       </div>
       <div className='mobile-drawer'>
         <AnchorTemporaryDrawer />

@@ -4,79 +4,73 @@ import Header from "../compnents/Common/Header";
 import TabsComponent from "../compnents/Dashboard/Tabs";
 import { get100Coins } from "../functions/get100coins";
 import Footer from "../compnents/Common/Footer";
+import { getWatchlist } from "../api/api";
 
 function Watchlist() {
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
   const [coins, setCoins] = useState([]);
   const [watchlist, setWatchlist] = useState([]);
-
-  // Helper to get the user's watchlist from localStorage
-  const getUserWatchlist = (savedUser) => {
-    if (!savedUser) return [];
-    const key = `watchlist_${savedUser.email}`;
-    return JSON.parse(localStorage.getItem(key)) || [];
-  };
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
+    // Get user and token from localStorage
     const savedUser = JSON.parse(localStorage.getItem("user"));
+    const savedToken = localStorage.getItem("googleIdToken");
+    
     setUser(savedUser);
+    setToken(savedToken);
 
-    if (!savedUser) {
+    if (!savedUser || !savedToken) {
       setTimeout(() => {
         window.location.href = "/";
       }, 1500);
       return;
     }
 
-    // Initial fetch
-    const wl = getUserWatchlist(savedUser);
-    setWatchlist(wl);
+    const fetchWatchlist = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        // Use your existing API function
+        const wl = await getWatchlist(savedUser.email, savedToken);
+        setWatchlist(wl);
 
-    if (wl.length > 0) {
-      getData(wl);
-    }
-
-    // Listen for localStorage changes (cross-tab)
-    const onStorage = (e) => {
-      if (e.key === `watchlist_${savedUser.email}`) {
-        const updatedWl = getUserWatchlist(savedUser);
-        setWatchlist(updatedWl);
-        if (updatedWl.length > 0) {
-          getData(updatedWl);
+        if (wl && wl.length > 0) {
+          // Fetch coin details from CoinGecko
+          const allCoins = await get100Coins();
+          if (allCoins) {
+            setCoins(allCoins.filter((coin) => wl.includes(coin.id)));
+          }
         } else {
           setCoins([]);
         }
+        
+        setLoading(false);
+      } catch (err) {
+        console.error('Failed to fetch watchlist:', err);
+        setError("Failed to load watchlist. Please try again.");
+        setLoading(false);
       }
     };
-    window.addEventListener('storage', onStorage);
 
-    // Listen for custom event (same tab)
-    const onCustomWatchlistUpdate = () => {
-      const updatedWl = getUserWatchlist(savedUser);
-      setWatchlist(updatedWl);
-      if (updatedWl.length > 0) {
-        getData(updatedWl);
-      } else {
-        setCoins([]);
-      }
+    fetchWatchlist();
+
+    // Listen for watchlist updates from other components
+    const onWatchlistUpdate = () => {
+      fetchWatchlist();
     };
-    window.addEventListener('watchlistUpdated', onCustomWatchlistUpdate);
+
+    window.addEventListener('watchlistUpdated', onWatchlistUpdate);
 
     return () => {
-      window.removeEventListener('storage', onStorage);
-      window.removeEventListener('watchlistUpdated', onCustomWatchlistUpdate);
+      window.removeEventListener('watchlistUpdated', onWatchlistUpdate);
     };
-    // eslint-disable-next-line
   }, []);
 
-  const getData = async (wl) => {
-    const allCoins = await get100Coins();
-    if (allCoins) {
-      setCoins(allCoins.filter((coin) => wl.includes(coin.id)));
-    }
-  };
-
-  if (!user) {
+  if (!user || !token) {
     return (
       <div>
         <Header />
@@ -88,10 +82,43 @@ function Watchlist() {
     );
   }
 
+  if (loading) {
+    return (
+      <div>
+        <Header />
+        <h1 style={{ textAlign: "center", marginTop: "2rem" }}>
+          Loading your watchlist...
+        </h1>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div>
+        <Header />
+        <h1 style={{ textAlign: "center", marginTop: "2rem" }}>
+          {error}
+        </h1>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            margin: "2rem",
+          }}
+        >
+          <a href="/dashboard">
+            <Button text="Try Again" onClick={() => window.location.reload()} />
+          </a>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div>
       <Header />
-      {watchlist.length > 0 ? (
+      {watchlist && watchlist.length > 0 ? (
         <TabsComponent coins={coins} />
       ) : (
         <div>
@@ -111,7 +138,6 @@ function Watchlist() {
           </div>
         </div>
       )}
-      {/* <Footer /> */}
     </div>
   );
 }
